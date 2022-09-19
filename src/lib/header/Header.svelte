@@ -9,14 +9,14 @@
 			<li class:active={$page.url.pathname === '/'}>
 				<a href="/">Overview</a>
 			</li>
-			<li class:active={$page.url.pathname === '/'}>
-				<a href="/download">Download</a>
+			<li class:active={$page.url.pathname === '/d'}>
+				<a href="/">Download</a>
 			</li>
-			<li class:active={$page.url.pathname === '/'}>
-				<a href="/signup">Signup</a>
+			<li class:active={$page.url.pathname === '/s'}>
+				<a href="/">Signup</a>
 			</li>
-			<li class:active={$page.url.pathname === '/'}>
-				<a href="/signin">Signin</a>
+			<li class:active={$page.url.pathname === '/si'}>
+				<a href="/">Signin</a>
 			</li>
 		</ul>
 	</nav>
