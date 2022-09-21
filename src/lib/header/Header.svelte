@@ -12,8 +12,8 @@
 			<li class:active={$page.url.pathname === '/d'}>
 				<a href="/">Download</a>
 			</li>
-			<li class:active={$page.url.pathname === '/s'}>
-				<a href="/">Signup</a>
+			<li class:active={$page.url.pathname === '/signup'}>
+				<a href="/signup">Signup</a>
 			</li>
 			<li class:active={$page.url.pathname === '/si'}>
 				<a href="/">Signin</a>
