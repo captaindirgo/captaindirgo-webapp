@@ -1,33 +1,23 @@
-
-
 import { request } from '@playwright/test';
 import type { Handle } from '@sveltejs/kit';
+import { auth } from "$lib/server/lucia";
+import { sequence } from "@sveltejs/kit/hooks";
 
-async function makeARandomNumberAsync()
-{
-	let rn = Math.random()
-	console.log(`making a random number ${rn}`)
-	return rn;
-}
 
-const appWideRandomNumber = makeARandomNumberAsync()
+const customHandle: Handle = async ({ event, resolve }) => {
+	//TODO 3 do we really need this? From example code
+	// let userid = event.cookies.get('userid');
 
-export const handle: Handle = async ({ event, resolve }) => {
-	let userid = event.cookies.get('userid');
+	// if (!userid) {
+	// 	// if this is the first time the user has visited this app,
+	// 	// set a cookie so that we recognise them when they return
+	// 	userid = crypto.randomUUID();
+	// 	event.cookies.set('userid', userid, { path: '/' });
+	// }
 
-	if (!userid) {
-		// if this is the first time the user has visited this app,
-		// set a cookie so that we recognise them when they return
-		userid = crypto.randomUUID();
-		event.cookies.set('userid', userid, { path: '/' });
-	}
-
-	event.locals.userid = userid;
-
-	const rn = await appWideRandomNumber;
-	event.locals.randonNumberHack = rn;
-
-	console.log(`current random number is ${rn}`)
+	// event.locals.userid = userid;
 
 	return resolve(event);
 };
+
+export const handle = sequence(auth.handleHooks(), customHandle);

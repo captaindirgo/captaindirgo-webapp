@@ -1,6 +1,43 @@
 import type { User } from './types'
 import type { Writable } from 'svelte/store';
 import { writable, get } from 'svelte/store';
+import type * as T from "io-ts";
+import * as E from "fp-ts/Either";
+import { failure } from "io-ts/PathReporter";
+import { pipe } from "fp-ts/function";
+
+/**
+ * @returns the value decoded to specified type, or throws error
+ */
+export const decodeWith = <
+  ApplicationType = any,
+  EncodeTo = ApplicationType,
+  DecodeFrom = unknown
+>(
+  codec: T.Type<ApplicationType, EncodeTo, DecodeFrom>
+) => (input: DecodeFrom): ApplicationType =>
+  pipe(
+    codec.decode(input),
+    E.getOrElseW((errors) => {
+      throw new Error(failure(errors).join("\n"));
+    })
+  );
+
+/**
+ * 
+ * @param varName name of env var
+ * @returns environment variable value of that name, or throws an error if not present
+ */
+export function getEnvOrDie(varName : string)
+{
+	let val = process.env[varName]
+	if(val === undefined)
+	{
+		throw new Error(`no val for required env var, ${varName}`)
+	}
+
+	return val
+}
 
 export const sessionToken : Writable<String | null> = writable(null);
 

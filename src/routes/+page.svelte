@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Counter from '$lib/Counter.svelte';
-import { svg_element } from 'svelte/internal';
+	import { svg_element } from 'svelte/internal';
 </script>
 
 <svelte:head>
