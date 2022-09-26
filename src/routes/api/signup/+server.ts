@@ -29,7 +29,7 @@ export const POST : RequestHandler = async (ev) => {
 		});
 		setCookie(ev.cookies, ...createUser.cookies);
 
-		return json({ user: {username : req.username} , errors: []})
+		return json({ user: {username : req.username} , errors: []} as SignupResponse)
 		//return { user: {username : req.username} , errors: []}
 	} catch (error) {
 		if(error instanceof Error) {
@@ -37,13 +37,13 @@ export const POST : RequestHandler = async (ev) => {
 				error.message === 'AUTH_DUPLICATE_IDENTIFIER_TOKEN' ||
 				error.message === 'AUTH_DUPLICATE_USER_DATA'
 			) {
-				return json({ user: undefined,errors: [{name: 'SIGNIN_USER_ALREADY_TAKEN'}]});
+				return json({ user: undefined,errors: [{name: 'SIGNIN_USER_ALREADY_TAKEN'}]} as SignupResponse);
 			}
 			console.error(error);
-			return json({ user: undefined,errors: [{name: 'UNKNOWN_ERROR'}]});
+			return json({ user: undefined,errors: [{name: 'UNKNOWN_ERROR'}]} as SignupResponse);
 		}
 		else {
-			return json({ user: undefined,errors: [{name: 'UNKNOWN_ERROR'}]});
+			return json({ user: undefined,errors: [{name: 'UNKNOWN_ERROR'}]} as SignupResponse);
 		}
 	}
 }
