@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import type { SignupRequest, SignupResponse } from '$lib/types';
-	import { post, setSession } from '$lib/utils';
+	import { post } from '$lib/utils';
 	import ListErrors from '$lib/ListErrors.svelte';
 
 	let username = '';
@@ -19,7 +19,6 @@
 		errors = response.errors;
 
 		if (response.user) {
-			setSession(response.user)
 			goto('/');
 		}
    	}

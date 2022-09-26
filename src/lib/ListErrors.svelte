@@ -1,11 +1,14 @@
-<script>
-	export let errors;
+<script lang="ts">
+    import type { CaptainDirgoError} from '$lib/types'
+	import { printError } from '$lib/utils'
+	export let errors : Array<CaptainDirgoError>;
+
 </script>
 
 {#if errors}
 	<ul class="error-messages">
-		{#each Object.keys(errors) as key}
-			<li>{key} {errors[key]}</li>
+		{#each errors as e}
+			<li>{printError(e)}</li>
 		{/each}
 	</ul>
 {/if}

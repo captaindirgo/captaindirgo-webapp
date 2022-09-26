@@ -41,17 +41,18 @@ export function getEnvOrDie(varName : string)
 
 export const sessionToken : Writable<String | null> = writable(null);
 
-export function setSession(user : User) {
-  	sessionToken.set(user.sessionToken)
-}
+//co : i think lucia handles this now
+// export function setSession(user : User) {
+//   	sessionToken.set(user.sessionToken)
+// }
 
-export function getSession() {
-  	get(sessionToken)
-}
+// export function getSession() {
+//   	get(sessionToken)
+// }
 
-export function endSession() {
-	sessionToken.set(null)
-}
+// export function endSession() {
+// 	sessionToken.set(null)
+// }
 
 export function post(endpoint : any, data : any) {
 	return fetch(endpoint, {
@@ -62,4 +63,9 @@ export function post(endpoint : any, data : any) {
 			'Content-Type': 'application/json'
 		}
 	}).then((r) => r.json());
+}
+
+export function printError(e : CaptainDirgoError) {
+   //TODO 3 internationalize
+   return e.name;
 }
