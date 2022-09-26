@@ -1,4 +1,4 @@
-import type { User } from './types'
+import type { User, CaptainDirgoError } from './types'
 import type { Writable } from 'svelte/store';
 import { writable, get } from 'svelte/store';
 import type * as T from "io-ts";
@@ -19,7 +19,7 @@ export const decodeWith = <
   pipe(
     codec.decode(input),
     E.getOrElseW((errors) => {
-      throw new Error(failure(errors).join("\n"));
+      throw {name: "BAD_REQUEST", fields: failure(errors)};
     })
   );
 

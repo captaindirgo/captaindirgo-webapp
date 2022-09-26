@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import type { RegisterResponse } from '$lib/types';
+	import type { SignupRequest, SignupResponse } from '$lib/types';
 	import { post, setSession } from '$lib/utils';
 	import ListErrors from '$lib/ListErrors.svelte';
 
@@ -11,17 +11,18 @@
 
 	async function submit(event: any) {
 		console.log(`submit called`)
-		goto('/');
-/* 		const response : RegisterResponse = await post(`auth/register`, { username, email, password });
 
-	// TODO handle network errors
+		const req : SignupRequest = { username : username, email : email, password : password}
+ 		const response : SignupResponse = await post(`api/signup`, req);
+
+		// TODO handle network errors
 		errors = response.errors;
 
 		if (response.user) {
 			setSession(response.user)
 			goto('/');
 		}
- */	}
+   	}
 </script>
 
 <svelte:head>
@@ -45,7 +46,7 @@
 								class="form-control form-control-lg"
 								type="text"
 								required
-								placeholder="Your Name"
+								placeholder="Username"
 								autocomplete="name"
 								bind:value={username}
 							/>

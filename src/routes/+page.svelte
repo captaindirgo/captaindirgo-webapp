@@ -8,6 +8,7 @@
 	<meta name="description" content="Captain Dirgo" />
 </svelte:head>
 
+
 <section>
 	<span class="welcome">
 		<svg width="50%" viewBox="0 0 1707 1632" xmlns="http://www.w3.org/2000/svg">
@@ -16,7 +17,6 @@
 		<img src="captaindirgo.svg" alt="Captain Dirgo" />
 	</span>
 </section>
-
 <style>
 	section {
 		display: flex;

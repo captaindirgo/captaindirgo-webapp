@@ -1,6 +1,9 @@
 <script lang="ts">
   import Header from '$lib/header/Header.svelte';
   import '../app.css';
+  import { handleSilentRefresh } from "lucia-sveltekit/client";
+
+  handleSilentRefresh();
 </script>
 
 <Header />

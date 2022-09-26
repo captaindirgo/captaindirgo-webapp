@@ -3,8 +3,7 @@
 // and what to do when importing types
 declare namespace App {
 	interface Locals {
-		userid: string;
-		randonNumberHack : number;
+		language?: string;
 	}
 
 	// interface PageData {}
