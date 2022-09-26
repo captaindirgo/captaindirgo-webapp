@@ -10,18 +10,25 @@
 	let errors : any = null;
 
 	async function submit(event: any) {
-		console.log(`submit called`)
+		const b = document.getElementById("submit_button") as HTMLInputElement;
+		b.disabled = true;
 
-		const req : SignupRequest = { username : username, email : email, password : password}
- 		const response : SignupResponse = await post(`api/signup`, req);
+		try {
+			const req : SignupRequest = { username : username, email : email, password : password}
+			const response : SignupResponse = await post(`api/signup`, req);
 
-		// TODO handle network errors
-		errors = response.errors;
+			// TODO handle network errors
+			errors = response.errors;
 
-		if (response.user) {
-			goto('/');
-		}
+			if (response.user) {
+				goto('/');
+			}
+		} finally { b.disabled = false }
    	}
+
+	function clearErrorsOnChange(e : any) {
+		errors = [];
+	}
 </script>
 
 <svelte:head>
@@ -43,6 +50,7 @@
 						<div class="basic-form">
 							<input
 								class="form-control form-control-lg"
+								on:keydown={clearErrorsOnChange}
 								type="text"
 								required
 								placeholder="Username"
@@ -52,6 +60,7 @@
 							<input
 								class="form-control form-control-lg"
 								type="email"
+								on:keydown={clearErrorsOnChange}
 								required
 								placeholder="Email"
 								autocomplete="email"
@@ -59,6 +68,7 @@
 							/>
 							<input
 								class="form-control form-control-lg"
+								on:keydown={clearErrorsOnChange}
 								type="password"
 								required
 								placeholder="Password"
@@ -66,7 +76,7 @@
 								bind:value={password}
 							/>
 						</div>
-						<button class="captain-dirgo-style"> Sign up </button>
+						<button id="submit_button" class="captain-dirgo-style"> Sign up </button>
 				</form>
 			</div>
 		</div>
